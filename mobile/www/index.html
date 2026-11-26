@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#F6F1E9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15171C" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Nova">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Nova</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="avatar.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <div class="bot-wrap"><div id="bot"></div></div>
+      <div class="greet"><div id="greetHi">Hi</div><div id="greetSub" class="muted"></div></div>
+      <button id="btnVoice" class="icon-btn" title="Voice">🎙</button>
+      <button id="btnTheme" class="icon-btn" title="Theme">◐</button>
+    </header>
+
+    <div id="bubble" class="bubble"></div>
+
+    <main id="main"></main>
+
+    <div id="toast" class="m-toast"></div>
+
+    <nav id="tabs">
+      <button data-tab="today" class="on"><span>🏠</span>Today</button>
+      <button data-tab="tasks"><span>✅</span>Tasks</button>
+      <button data-tab="add" class="fab"><span>＋</span></button>
+      <button data-tab="reminders"><span>🔔</span>Remind</button>
+      <button data-tab="more"><span>⋯</span>More</button>
+    </nav>
+  </div>
+
+  <div id="sheet" class="sheet"><div class="sheet-card" id="sheetCard"></div></div>
+
+  <script src="avatar.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="nova-account.js"></script>
+  <script src="sync-cloud.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

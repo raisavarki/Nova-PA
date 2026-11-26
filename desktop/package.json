@@ -1,0 +1,46 @@
+{
+  "name": "nova-companion",
+  "productName": "Nova",
+  "version": "8.1.0",
+  "description": "Nova — a private, offline personal assistant for Windows, with an optional desktop avatar, Apple-style widgets, and encrypted cloud sync.",
+  "main": "src/main.js",
+  "author": "Raisa",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis portable",
+    "dist:portable": "electron-builder --win portable",
+    "dist:installer": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^45.4.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.raisa.nova",
+    "productName": "Nova",
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/icon.png",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "shortcutName": "Nova"
+    },
+    "portable": {
+      "artifactName": "Nova-${version}-portable.exe"
+    }
+  }
+}

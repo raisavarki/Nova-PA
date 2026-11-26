@@ -1,0 +1,33 @@
+Nova Companion — v7.5  (UI refinement + the pointing helper)
+============================================================
+
+AVATAR — now a proper little helper
+  • Nova points with a REAL arm now: it reaches out with a hand and an
+    extended finger toward whatever it's showing you (e.g. an error on
+    screen) — in either direction, left or right.
+  • The old floating arrow and the "Here 👉" speech bubble are gone; the
+    arm does the pointing, with a soft spark at the fingertip and an
+    eager little lean toward the target.
+  • Works the same in developer mode (the arm picks up the dev skin tint).
+
+NORMAL APP — polish
+  • Active sidebar item now has a clear left accent bar, so you always
+    know where you are.
+  • Tactile buttons, chips and cards (subtle press + hover), a warm focus
+    glow on the search/command bar, and a friendly nudge on the brand bot.
+  • Smoother transitions throughout — nothing moved, everything feels
+    calmer.
+
+DEVELOPER MODE — a real workbench
+  • Deeper, cooler dark palette with crisper panel edges and layered depth.
+  • A "DEV" badge on the Nova brand and a "developer edition" subtitle so
+    the mode is unmistakable; the Developer nav entry reads in a mono font.
+  • Terminal-flavoured dev surfaces (accent-edged tool output), tidier hub
+    tabs, and a calmer, more legible background-activity panel.
+
+Nothing was removed — all your PA features and all the developer tools
+from v7.4 are exactly where they were. This release is purely look-and-feel
+plus the new arm-pointing behaviour.
+
+Run it the same way as before:  npm install  then  npm start
+(or build the portable .exe with your existing packaging step).

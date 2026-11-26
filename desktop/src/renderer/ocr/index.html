@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:">
+<style>
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; cursor: crosshair; user-select: none; background: #000; }
+  #img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+  #dim { position: absolute; inset: 0; background: rgba(20, 14, 8, .45); }
+  #box { position: absolute; border: 2px solid #E9803F; box-shadow: 0 0 0 9999px rgba(20,14,8,.45); display: none; background: transparent; }
+  #hint { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); background: #FFFCF7; color: #2F2B26; font: 14px "Segoe UI", sans-serif; padding: 9px 16px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+</style></head>
+<body><img id="img" alt=""><div id="dim"></div><div id="box"></div><div id="hint">Drag a box around the text to copy it · Esc to cancel</div>
+<script src="ocr.js"></script></body></html>

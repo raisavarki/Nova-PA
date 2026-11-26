@@ -1,0 +1,97 @@
+name: Build Nova (APK + EXE)
+
+# One run builds BOTH:
+#   - the Android APK  (from  mobile/ )  on a Linux runner
+#   - the Windows .exe (from  desktop/ ) on a Windows runner
+# Download them from this run's "Artifacts" when it finishes.
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  apk:
+    name: Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install deps
+        working-directory: mobile
+        run: npm install
+      - name: Sync Capacitor
+        working-directory: mobile
+        run: npx cap sync android
+      - name: Build debug APK
+        working-directory: mobile/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: nova-apk
+          path: mobile/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+  exe:
+    name: Windows EXE
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install deps
+        working-directory: desktop
+        run: npm install
+      - name: Build Windows exe
+        working-directory: desktop
+        run: npm run dist
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: nova-exe
+          path: desktop/dist/*.exe
+          if-no-files-found: error
+
+  release:
+    name: Publish Release (APK + EXE)
+    needs: [apk, exe]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: nova-apk
+          path: in-apk
+      - uses: actions/download-artifact@v4
+        with:
+          name: nova-exe
+          path: in-exe
+      - name: Collect & rename assets
+        run: |
+          mkdir -p out
+          cp in-apk/app-debug.apk out/Nova.apk
+          installer="$(ls in-exe/*.exe 2>/dev/null | grep -iv portable | head -1)"
+          [ -z "$installer" ] && installer="$(ls in-exe/*.exe | head -1)"
+          cp "$installer" out/Nova-Setup.exe
+          portable="$(ls in-exe/*portable*.exe 2>/dev/null | head -1)"
+          [ -n "$portable" ] && cp "$portable" out/Nova-Portable.exe || true
+          ls -la out
+      - name: Publish / update the "latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Nova — latest build
+          body: "Automatic build. Download Nova.apk (Android) or Nova-Setup.exe (Windows)."
+          files: out/*
+          fail_on_unmatched_files: true
