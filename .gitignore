@@ -1,0 +1,20 @@
+# dependencies
+**/node_modules/
+
+# build output
+desktop/dist/
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/www/build/
+**/.cache/
+
+# artifacts
+*.apk
+*.aab
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.iml
+.idea/

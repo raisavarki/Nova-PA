@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; media-src 'self' blob: mediastream:; img-src 'self' data:">
+<title>Nova</title>
+<link rel="stylesheet" href="../shared/avatar.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="titlebar"><div class="tb-title">Nova</div><div id="tbStatus" class="tb-status"></div></div>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-bot" id="brandBot"></div><div><div class="brand-name" id="brandName">Nova</div><div class="brand-sub">Personal assistant</div></div></div>
+    <nav id="nav">
+      <div class="nav-h">Plan</div>
+      <button data-sec="home"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Today</button><button data-sec="calendar"><svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></svg>Calendar<span class="count" id="cntCal"></span></button><button data-sec="reminders"><svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 0 0-5-6.7V3.5a2 2 0 0 0-4 0v.8A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg>Reminders<span class="count" id="cntRem"></span></button><button data-sec="tasks"><svg viewBox="0 0 24 24"><path d="M9 11.5 11.5 14 16 8.5M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg>Tasks<span class="count" id="cntTask"></span></button>
+      <div class="nav-h">Productivity</div>
+      <button data-sec="focus"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg>Focus<span class="count" id="cntFocus"></span></button><button data-sec="habits"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4M9 12l2 2 4-4"/></svg>Habits<span class="count" id="cntHab"></span></button><button data-sec="routines"><svg viewBox="0 0 24 24"><path d="M5 4l14 8-14 8z"/></svg>Routines</button>
+      <button data-sec="usage"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Usage</button><button data-sec="review"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/><circle cx="19" cy="7" r="3" fill="currentColor" stroke="none"/></svg>Review</button>
+      <div class="nav-h">Work</div>
+      <button data-sec="documents"><svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><circle cx="12.5" cy="13" r="2.6"/><path d="m14.5 15 2 2"/></svg>Documents</button><button data-sec="meetings"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Meetings</button><button data-sec="sap"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h4M7 14h7M15 10h2"/></svg>SAP</button>
+      <div class="nav-h">Automate</div>
+      <button data-sec="automations"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6z"/></svg>Automations</button><button data-sec="widgets"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="10" rx="2"/><rect x="13" y="3" width="8" height="6" rx="2"/><rect x="13" y="11" width="8" height="10" rx="2"/><rect x="3" y="15" width="8" height="6" rx="2"/></svg>Widgets</button>
+      <div class="nav-h">Life</div>
+      <button data-sec="people"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.3 3.3 0 0 1 0 6.4M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/></svg>People</button><button data-sec="money"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.5 9.5v.01M17.5 14.5v.01"/></svg>Money</button><button data-sec="journal"><svg viewBox="0 0 24 24"><path d="M6 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8 3v18M11 8h4M11 12h4"/></svg>Journal</button><button data-sec="rewards"><svg viewBox="0 0 24 24"><path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM8.5 13.5 7 21l5-3 5 3-1.5-7.5"/></svg>Rewards</button>
+      <div class="nav-h">Library</div>
+      <button data-sec="notes"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5"/></svg>Notes</button><button data-sec="clipboard"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9zM7 5H5v16h14V5h-2M8 12h8M8 16h5"/></svg>Clipboard</button><button data-sec="shortcuts"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>Shortcuts</button>
+      <button data-sec="tools"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.1L3.5 17.2a1.6 1.6 0 1 0 2.3 2.3l5.8-5.8a4 4 0 0 0 5.1-5.4l-2.4 2.4-2.1-.5-.5-2.1z"/></svg>Tools</button><button data-sec="reading"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h5v16H6a2 2 0 0 0-2 2zM20 5a2 2 0 0 0-2-2h-5v16h5a2 2 0 0 1 2 2z"/></svg>Reading list</button><button data-sec="checklists"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 5l1.5 1.5L8 4M4 11l1.5 1.5L8 10M4 17l1.5 1.5L8 16"/></svg>Checklists</button>
+      <div class="nav-h" id="navDevHead" style="display:none">Developer</div>
+      <button data-sec="developer" id="navDev" style="display:none"><svg viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 5l-2 14"/></svg>Developer</button>
+      <div class="nav-h">Assistant</div>
+      <button data-sec="chat"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Chat</button><button data-sec="skills"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L21 9l-5 4.5L17.5 21 12 17.3 6.5 21 8 13.5 3 9l6.4-.4z"/></svg>What I can do</button>
+      <button class="nav-more" id="navMore" type="button"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg><span id="navMoreLbl">More</span></button>
+      <div class="nav-sep"></div>
+      <button data-sec="settings"><svg viewBox="0 0 24 24"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.4-2.5a7.6 7.6 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7.4 7.4 0 0 0-1.7-1L15 3h-4l-.3 2.5a7.4 7.4 0 0 0-1.7 1l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 2l-2 1.6 2 3.4 2.4-1c.5.4 1.1.7 1.7 1L11 21h4l.3-2.5c.6-.3 1.2-.6 1.7-1l2.4 1 2-3.4z"/></svg>Settings</button>
+    </nav>
+    <div class="side-foot">
+      <label class="switch-row"><span>Nova on desktop</span><input type="checkbox" id="compToggle"><span class="switch"></span></label>
+      <div class="side-status" id="sideStatus"></div>
+    </div>
+  </aside>
+  <main id="main">
+    <section id="sec-home" class="sec active">
+      <div class="home-head">
+        <div class="home-bot" id="homeBot"></div>
+        <div class="home-titles">
+          <h1 id="greet">Good evening</h1>
+          <div class="sub" id="todayLine"></div>
+          <div class="weather" id="weatherLine"></div>
+        </div>
+        <div class="home-focus" id="homeFocus"></div>
+      </div>
+      <div class="cmd-wrap">
+        <div class="askbar big">
+          <svg class="cmd-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="homeAsk" placeholder="Search your stuff or type a command, e.g. remind me at 5 to call Vivek" autocomplete="off">
+          <button class="icon mic" id="homeMic" title="Talk"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg></button>
+          <button class="icon send" id="homeSend" title="Run"><svg viewBox="0 0 24 24"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg></button>
+        </div>
+        <div class="results" id="cmdResults"></div>
+      </div>
+      <div class="result-line" id="cmdOut"></div>
+      <div class="ai-card" id="aiCard">
+        <div class="ai-card-t"><b>Optional:</b> connect a free AI for open questions, writing help and screen understanding. Everything else already works without it.</div>
+        <button class="primary" id="aiSetup">Set up free AI</button><button class="ghost" id="aiDismiss">Not now</button>
+      </div>
+      <div class="chips" id="homeChips">
+        <button data-cmd="Start my day">☀️ Start my day</button>
+        <button data-cmd="start focus 25 min">🎯 Focus 25 min</button>
+        <button data-cmd="log water">💧 Log water</button>
+        <button data-cmd="screenshot">📸 Screenshot</button>
+        <button data-cmd="what's on my calendar this week">📅 This week</button>
+        <button data-cmd="start dictation">📝 Dictate</button>
+      </div>
+      <div class="grid3">
+        <div class="card">
+          <div class="card-h"><h3>Today's agenda</h3><button class="link" data-go="calendar">Calendar ›</button></div>
+          <div id="homeAgenda" class="mini-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>Tasks</h3><button class="link" data-go="tasks">All ›</button></div>
+          <div id="homeTasks" class="mini-list"></div>
+          <div class="inline-add"><input id="homeTaskAdd" placeholder="+ Add a task (e.g. review BOE by Friday)"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>Habits today</h3><button class="link" data-go="habits">All ›</button></div>
+          <div id="homeHabits" class="mini-list"></div>
+        </div>
+      </div>
+      <div class="card plan-card" style="margin-top:14px">
+        <div class="card-h"><h3>Day planner</h3><div class="head-actions"><button class="ghost" id="planBtn">Plan my day</button><button class="ghost" id="planTomBtn">Plan tomorrow</button><button class="primary" id="planCommit" style="display:none">Add to calendar</button></div></div>
+        <div id="planOut" class="muted small">Nova fits your open tasks into the free time between meetings (lunch and your workday hours are respected). Add "(1h)" or "(30m)" to a task to set its length.</div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="card-h"><h3>Shortcuts</h3><button class="link" data-go="shortcuts">Edit ›</button></div>
+        <div id="homeShortcuts" class="tiles small"></div>
+      </div>
+    
+      <div class="grid3" style="margin-top:14px">
+        <div class="card"><div class="card-h"><h3>Countdowns</h3><button class="link" data-go="tools">Add ›</button></div><div id="homeCd" class="mini-list"></div></div>
+        <div class="card"><div class="card-h"><h3>Birthdays</h3><button class="link" data-go="people">People ›</button></div><div id="homeBd" class="mini-list"></div></div>
+        <div class="card"><div class="card-h"><h3>World clock</h3><button class="link" data-go="tools">Edit ›</button></div><div id="homeClocks" class="mini-list"></div></div>
+      </div>
+</section>
+    <section id="sec-calendar" class="sec">
+      <div class="sec-head"><h2>Calendar</h2><div class="head-actions"><button class="ghost" id="calPrev">‹</button><b id="calTitle"></b><button class="ghost" id="calNext">›</button><button class="ghost" id="calToday">Today</button></div></div>
+      <div class="card add-card"><div class="askbar">
+        <input id="evText" placeholder='Add an event: "Team sync tomorrow 3 to 4 pm @ Teams" or "Leave on 2 Dec all day"'>
+        <select id="evRemind"><option value="10">Remind 10 min before</option><option value="0">At start</option><option value="5">5 min before</option><option value="15">15 min before</option><option value="30">30 min before</option><option value="60">1 hour before</option><option value="1440">1 day before</option><option value="-1">No reminder</option></select>
+        <button class="primary" id="evAdd">Add</button></div></div>
+      <div class="cal-layout">
+        <div class="card cal-card"><div class="cal-dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div><div class="cal-grid" id="calGrid"></div></div>
+        <div class="card day-card"><div class="card-h"><h3 id="dayTitle">Today</h3></div><div id="dayList"></div></div>
+      </div>
+    </section>
+    <section id="sec-reminders" class="sec">
+      <div class="sec-head"><h2>Reminders &amp; alarms</h2></div>
+      <div class="card add-card">
+        <div class="askbar"><input id="remText" placeholder='Type naturally: "pay rent on the 1st every month at 10" or "call Vivek tomorrow 4:30 pm"'><button class="primary" id="remAdd">Add</button></div>
+        <details class="adv"><summary>Pick date &amp; time instead</summary>
+          <div class="adv-row">
+            <input id="remWhat" placeholder="What?">
+            <input id="remWhen" type="datetime-local">
+            <select id="remRepeat"><option value="">Once</option><option value="daily">Every day</option><option value="weekdays">Weekdays</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option><option value="hourly">Hourly</option><option value="every:30">Every 30 min</option><option value="every:120">Every 2 hours</option><option value="lastday">Last day of month</option></select>
+            <select id="remKind"><option value="reminder">Reminder</option><option value="alarm">Alarm</option></select>
+            <button class="primary" id="remAdd2">Add</button>
+          </div>
+        </details>
+      </div>
+      <div id="remList"></div>
+    </section>
+    <section id="sec-tasks" class="sec">
+      <div class="sec-head"><h2>Tasks</h2><div class="head-actions">
+        <div class="seg" id="taskFilter"><button data-f="open" class="on">Open</button><button data-f="today">Today</button><button data-f="done">Done</button></div>
+        <button class="ghost" id="taskClear">Clear completed</button></div></div>
+      <div class="card add-card"><div class="askbar">
+        <input id="taskText" placeholder='e.g. "Send Havells CR estimate by Friday" — add "urgent" for high priority'>
+        <select id="taskPri"><option value="normal">Normal</option><option value="high">High</option><option value="low">Low</option></select>
+        <button class="primary" id="taskAdd">Add</button></div></div>
+      <div id="taskList" class="list"></div>
+    </section>
+    <section id="sec-focus" class="sec">
+      <div class="sec-head"><h2>Focus</h2></div>
+      <div class="focus-layout">
+        <div class="card focus-card">
+          <div class="ring-wrap"><svg viewBox="0 0 200 200" class="ring"><circle cx="100" cy="100" r="86" class="ring-bg"/><circle cx="100" cy="100" r="86" class="ring-fg" id="ringFg"/></svg>
+            <div class="ring-text"><div id="fTime">25:00</div><div id="fPhase" class="muted">Ready</div></div></div>
+          <input id="fLabel" class="f-label" placeholder="What are you focusing on? (optional)">
+          <div class="f-presets"><button data-min="15">15</button><button data-min="25" class="on">25</button><button data-min="45">45</button><button data-min="60">60</button><span class="muted small">min</span></div>
+          <div class="f-btns"><button class="primary" id="fStart">Start focus</button><button class="ghost" id="fPause">Pause</button><button class="ghost" id="fStop">Stop</button><button class="ghost" id="fBreak">Take a break</button></div>
+          <label class="switch-row"><span>Start breaks automatically</span><input type="checkbox" id="fAuto"><span class="switch"></span></label>
+        </div>
+        <div>
+          <div class="card"><div class="card-h"><h3>This week</h3><span class="muted small" id="fToday"></span></div><div class="bars" id="fBars"></div></div>
+          <div class="card"><h3>Breaks &amp; wellbeing</h3>
+            <div class="switch-row"><span>🚶 Stretch / walk reminder every <input class="num" id="wbStretchEvery" type="number" min="15" max="240"> min</span><label class="swl"><input type="checkbox" id="wbStretch"><span class="switch"></span></label></div>
+            <div class="switch-row"><span>💧 Water reminder every <input class="num" id="wbWaterEvery" type="number" min="15" max="240"> min</span><label class="swl"><input type="checkbox" id="wbWater"><span class="switch"></span></label></div>
+            <div class="switch-row"><span>👀 Eye rest (20-20-20) every <input class="num" id="wbEyesEvery" type="number" min="10" max="120"> min</span><label class="swl"><input type="checkbox" id="wbEyes"><span class="switch"></span></label></div>
+            <div class="muted small">Quiet hours <input class="num t" id="wbQs" type="time"> to <input class="num t" id="wbQe" type="time">. Stretch and water nudges also pause during focus sessions.</div>
+          </div>
+          <div class="card"><h3>🫧 Breathe</h3>
+            <div class="breathe-wrap"><div class="breathe-orb" id="brOrb"></div><div class="breathe-label" id="brLabel">Ready</div></div>
+            <div class="muted small" id="brCount" style="text-align:center;min-height:16px"></div>
+            <div class="btnrow" style="justify-content:center"><button class="primary" id="brGo">Start 4-7-8</button></div>
+            <div class="muted small" style="text-align:center">Inhale 4s · hold 7s · exhale 8s — a quick calming reset.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="sec-habits" class="sec">
+      <div class="sec-head"><h2>Habits</h2></div>
+      <div class="card add-card"><div class="askbar">
+        <input id="habIcon" class="emoji" value="⭐" maxlength="4" title="Icon">
+        <input id="habName" placeholder="New habit, e.g. Read 20 minutes">
+        <input id="habTarget" type="number" min="1" max="20" value="1" class="num" title="Times per day"><span class="muted small">× / day</span>
+        <button class="primary" id="habAdd">Add habit</button></div></div>
+      <div id="habList" class="list"></div>
+      <p class="muted small">Tip: say "log water" or "did stretch" to tick one off by voice.</p>
+    </section>
+    <section id="sec-routines" class="sec">
+      <div class="sec-head"><h2>Routines</h2><div class="head-actions"><button class="primary" id="routineNew">+ New routine</button></div></div>
+      <p class="muted">One phrase runs several steps. Each step is anything you'd say to Nova, e.g. <code>open outlook</code>, <code>volume 30</code>, <code>show my tasks</code>, <code>weather</code>. Say the routine's name to run it.</p>
+      <div id="routineList" class="routines"></div>
+    </section>
+<section id="sec-people" class="sec">
+      <div class="sec-head"><h2>People</h2><div class="head-actions"><input class="search" id="pSearch" placeholder="Search people…"></div></div>
+      <div class="card add-card"><div class="p-form">
+        <input id="pName" placeholder="Name"><input id="pPhone" placeholder="Phone"><input id="pEmail" placeholder="Email">
+        <input id="pBday" placeholder="Birthday (e.g. 12 March)"><input id="pCompany" placeholder="Company / relation"><button class="primary" id="pAdd">Add</button>
+      </div></div>
+      <div id="pList" class="people"></div>
+      <p class="muted small">Say "Vivek's birthday is 12 March", "call Vivek", "email Vivek" or "whatsapp Vivek". Birthdays remind you at 9 AM on the day.</p>
+    </section>
+    <section id="sec-money" class="sec">
+      <div class="sec-head"><h2>Money</h2><div class="head-actions"><span class="muted small">Monthly budget</span><input class="num" id="mBudget" type="number" min="0" placeholder="0"><input class="num" id="mCur" maxlength="3" title="Currency symbol"></div></div>
+      <div class="card add-card"><div class="askbar">
+        <input id="mText" placeholder='Quick add: "250 lunch", "1200 cab to airport", "499 netflix"'><button class="primary" id="mAdd">Add</button></div></div>
+      <div class="money-top">
+        <div class="card stat"><div class="muted small">This month</div><div class="big" id="mMonth"></div><div class="meter"><i id="mMeter"></i></div><div class="muted small" id="mBudgetLine"></div></div>
+        <div class="card stat"><div class="muted small">Today</div><div class="big" id="mToday"></div><div class="muted small" id="mWeek"></div></div>
+        <div class="card"><h3>By category · this month</h3><div id="mCats" class="cats"></div></div>
+      </div>
+      <div class="group-h">Recent</div><div id="mList" class="list"></div>
+    </section>
+    <section id="sec-journal" class="sec">
+      <div class="sec-head"><h2>Journal</h2></div>
+      <div class="card add-card">
+        <div class="moods" id="jMoods"><span class="muted small">How was today?</span><button data-m="1">😞</button><button data-m="2">😕</button><button data-m="3">😐</button><button data-m="4">🙂</button><button data-m="5">😄</button></div>
+        <textarea id="jText" rows="3" placeholder="Write a few lines about your day… (Ctrl+Enter to save)"></textarea>
+        <div class="right"><button class="primary" id="jAdd">Save entry</button></div>
+      </div>
+      <div class="mood-strip card"><h3>Mood · last 14 days</h3><div id="jStrip" class="jstrip"></div></div>
+      <div id="jList"></div>
+    </section>
+    <section id="sec-tools" class="sec">
+      <div class="sec-head"><h2>Tools</h2></div>
+      <div class="tools-grid">
+        <div class="card"><h3>World clock</h3><div id="tClocks" class="clocks"></div>
+          <div class="askbar" style="margin-top:10px"><input id="tClockAdd" placeholder="Add a city (e.g. Tokyo, Toronto)"><button class="ghost" id="tClockBtn">Add</button></div></div>
+        <div class="card"><h3>Converter</h3>
+          <div class="askbar" style="margin-top:8px"><input id="tConv" placeholder='e.g. "10 km to miles", "100 usd to inr", "30 c to f"'><button class="primary" id="tConvBtn">Convert</button></div>
+          <div id="tConvOut" class="conv-out"></div></div>
+        <div class="card"><h3>Countdowns</h3>
+          <div class="askbar" style="margin-top:8px"><input id="tCdTitle" placeholder="What? (e.g. SEZ go-live)"><input id="tCdDate" type="date" style="max-width:160px"><button class="primary" id="tCdAdd">Add</button></div>
+          <div id="tCds" class="mini-list" style="margin-top:8px"></div></div>
+        <div class="card"><h3>Stopwatch</h3><div class="sw" id="tSw">0:00.0</div>
+          <div class="btnrow" style="justify-content:center"><button class="primary" id="tSwStart">Start</button><button class="ghost" id="tSwReset">Reset</button></div></div>
+        <div class="card"><h3>Password generator</h3>
+          <div class="pw" id="tPw">Click Generate</div>
+          <div class="btnrow"><input type="range" id="tPwLen" min="8" max="40" value="16"><span class="muted small" id="tPwLenV">16</span><button class="primary" id="tPwGen">Generate &amp; copy</button></div>
+          <div class="muted small">Generated on your PC and not saved in clipboard history.</div></div>
+        <div class="card"><h3>Quick calculator</h3>
+          <div class="askbar" style="margin-top:8px"><input id="tCalc" placeholder="e.g. 18% of 45000, (1200+350)*12"><button class="ghost" id="tCalcBtn">=</button></div>
+          <div id="tCalcOut" class="conv-out"></div></div>
+      </div>
+    </section>
+
+    <section id="sec-usage" class="sec">
+      <div class="sec-head"><h2>Usage</h2><div class="head-actions"><div class="seg" id="uScope"><button data-v="1" class="on">Today</button><button data-v="7">7 days</button></div></div></div>
+      <div class="usage-top"><div class="card stat"><div class="muted small">Active time</div><div class="big" id="uTotal">0m</div><div class="muted small" id="uSub"></div></div><div class="card"><h3>By app</h3><div id="uApps" class="cats"></div></div></div>
+      <div class="card"><h3>Last 7 days</h3><div class="bars" id="uBars"></div></div>
+      <div class="card"><h3>Focus guard</h3>
+        <label class="switch-row"><span>During focus sessions, tuck away distracting apps and sites (minimises the window)</span><input type="checkbox" id="bOn"><span class="switch"></span></label>
+        <label class="lbl">Window titles to block <span class="muted">(comma separated)</span></label><input id="bTitles">
+        <label class="lbl">Apps to block <span class="muted">(process names, e.g. spotify, whatsapp)</span></label><input id="bApps">
+        <div class="btnrow"><button class="primary" id="bSave">Save</button></div>
+      </div>
+      <p class="muted small">Only counts time while you're active (not idle). Stays on this PC.</p>
+    </section>
+
+    <section id="sec-documents" class="sec">
+      <div class="sec-head"><h2>Documents</h2><div class="head-actions"><span class="muted small" id="dStats"></span><button class="ghost" id="dReindex">Re-index</button><button class="primary" id="dAdd">+ Add folder</button></div></div>
+      <div class="card add-card"><div class="askbar big"><svg class="cmd-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="dQuery" placeholder='Search inside your files: "BOE 7712345", "Motherson Annexure B", "Havells invoice 4471"'></div></div>
+      <div id="dFolders" class="chips"></div>
+      <div class="bar" id="dBar"><div></div></div>
+      <div id="dResults" class="list"></div>
+      <p class="muted small">Searches inside PDF, Word, Excel, PowerPoint, text and CSV files, all on this PC. Scanned PDFs have no text layer, so only their file names are searchable. Tip: say "find file BOE 4471".</p>
+    </section>
+
+    <section id="sec-meetings" class="sec">
+      <div class="sec-head"><h2>Meetings</h2></div>
+      <div class="card rec-card">
+        <div class="rec-l"><div class="rec-dot" id="mDot"></div><div><div class="big" id="mTime">0:00</div><div class="muted small" id="mState">Ready to record</div></div></div>
+        <input id="mTitle" placeholder="Meeting title (optional)">
+        <label class="switch-row" style="padding:0"><span class="small">Include computer audio (Teams/Zoom)</span><input type="checkbox" id="mSys" checked><span class="switch"></span></label>
+        <button class="primary" id="mStart">● Start recording</button>
+      </div>
+      <div class="meter" id="mLevelWrap"><i id="mLevel"></i></div>
+      <div id="mLive" class="out"></div>
+      <div id="mList"></div>
+      <p class="muted small">Audio is turned into text in 3-minute chunks: with Groq (free) if connected, otherwise Windows' offline recognition. With AI on, you also get a summary and action items you can turn into tasks. Let people know when you record.</p>
+    </section>
+
+    <section id="sec-sap" class="sec">
+      <div class="sec-head"><h2>SAP launcher</h2><span class="muted small" id="sapFound"></span></div>
+      <div class="card add-card"><div class="askbar"><input id="sapT" placeholder="Transaction, e.g. VA01, SE38, /BRI/EXIM_MWR"><select id="sapSys"></select><button class="primary" id="sapGo">Open</button></div></div>
+      <div class="card"><h3>Favourite transactions</h3><div id="sapFav" class="tiles small" style="margin-top:10px"></div>
+        <div class="askbar" style="margin-top:10px"><input id="sapFavT" placeholder="T-code"><input id="sapFavN" placeholder="Label (e.g. Create sales order)"><button class="ghost" id="sapFavAdd">Add favourite</button></div></div>
+      <div class="card"><h3>Systems</h3><div id="sapSystems" class="list" style="margin-top:8px"></div>
+        <div class="sap-form"><input id="ssName" placeholder="Name (e.g. PRD)"><input id="ssEntry" placeholder="SAP Logon entry (exact description)"><input id="ssClient" placeholder="Client (e.g. 100)"><input id="ssUser" placeholder="User (optional)"><button class="ghost" id="ssAdd">Add system</button></div>
+        <label class="lbl">sapshcut.exe path <span class="muted">(only if not found automatically)</span></label><input id="sapPath" placeholder="C:\Program Files (x86)\SAP\FrontEnd\SAPgui\sapshcut.exe">
+      </div>
+      <p class="muted small">Uses SAP GUI's own shortcut tool. Say "open VA01 in PRD" or "sap SE38". With SSO you go straight in; otherwise SAP asks for your password.</p>
+    </section>
+
+    <section id="sec-automations" class="sec">
+      <div class="sec-head"><h2>Automations</h2><div class="head-actions"><button class="primary" id="aNew">+ New automation</button></div></div>
+      <div class="card"><h3>Start from a template</h3><div class="chips" id="aTemplates"></div></div>
+      <div id="aEditor" class="card" style="display:none"></div>
+      <div id="aList" class="list" style="margin-top:14px"></div>
+      <div class="group-h">Recent runs</div><div id="aLog" class="list"></div>
+    </section>
+
+    <section id="sec-widgets" class="sec">
+      <div class="sec-head"><h2>Widgets</h2><div class="head-actions"><button class="ghost" id="wRefresh">Refresh</button></div></div>
+      <div class="wboard" id="wBoard"></div>
+      <div class="group-h">Pop out to your desktop</div>
+      <p class="muted small" style="margin:-4px 0 10px">Float any of these as a little always-there card on your desktop — drag it anywhere, resize, or pin on top.</p>
+      <div class="tiles" id="wTypes"></div>
+      <div class="group-h">On your desktop</div><div id="wList" class="list"></div>
+    </section>
+
+    <section id="sec-rewards" class="sec">
+      <div class="sec-head"><h2>Rewards</h2></div>
+      <div class="rew-top">
+        <div class="card rew-bot"><div id="rewBot" class="rew-av"></div></div>
+        <div class="card"><div class="muted small">Level</div><div class="big" id="rLevel">1</div><div class="meter"><i id="rMeter"></i></div><div class="muted small" id="rNext"></div><div class="muted small" id="rToday" style="margin-top:6px"></div>
+          <div class="muted small" style="margin-top:10px">Earn XP: 💧 water +2 · habit +3 (goal +10) · ✅ task +10 · 🎯 focus session +20 · 📔 journal +5</div></div>
+      </div>
+      <div class="card"><h3>Wardrobe</h3><div id="rItems" class="tiles small" style="margin-top:10px"></div></div>
+      <div class="card"><h3>Recent XP</h3><div id="rLog" class="mini-list"></div></div>
+    </section>
+    <section id="sec-notes" class="sec">
+      <div class="sec-head"><h2>Notes</h2><div class="head-actions"><input class="search" id="noteSearch" placeholder="Search notes…"></div></div>
+      <div class="card add-card"><textarea id="noteText" rows="2" placeholder="Jot something down… (Ctrl+Enter to save)"></textarea><div class="right"><button class="primary" id="noteAdd">Save note</button></div></div>
+      <div id="noteGrid" class="notes"></div>
+    </section>
+    <section id="sec-clipboard" class="sec">
+      <div class="sec-head"><h2>Clipboard history</h2><div class="head-actions"><input class="search" id="clipSearch" placeholder="Search copied text…"><button class="ghost" id="clipClear">Clear (keep pinned)</button></div></div>
+      <label class="switch-row card" style="padding:10px 16px;margin-bottom:12px"><span>Save everything I copy (text only, stored on this PC). Turn off before copying passwords if you prefer.</span><input type="checkbox" id="clipOn"><span class="switch"></span></label>
+      <div id="clipList" class="list"></div>
+    </section>
+    <section id="sec-shortcuts" class="sec">
+      <div class="sec-head"><h2>Shortcuts</h2></div>
+      <div class="card add-card"><div class="askbar">
+        <input id="scName" placeholder="Name (e.g. SAP Logon)">
+        <input id="scTarget" list="dl_apps" placeholder="App name, website, folder path or a Nova command">
+        <datalist id="dl_apps"></datalist>
+        <select id="scKind"><option value="">Auto</option><option value="app">App</option><option value="url">Website</option><option value="folder">Folder</option><option value="file">File</option><option value="command">Nova command</option></select>
+        <button class="primary" id="scAdd">Add</button></div></div>
+      <div id="scGrid" class="tiles"></div>
+      <p class="muted small">Click a tile to open it, or say "open &lt;name&gt;". A "Nova command" tile runs anything you'd type, e.g. <code>focus mode</code> or <code>volume 20</code>.</p>
+    </section>
+    <section id="sec-chat" class="sec chat">
+      <div class="chat-main">
+        <div class="sec-head"><h2>Chat</h2><span class="pill muted" id="aiPill"></span><div class="head-actions"><button class="ghost icon-btn" id="actShow" title="Show activity">⚡</button><span class="pill" id="chatBusy"></span><button class="ghost" id="btnClear">New conversation</button></div></div>
+        <div id="messages"></div>
+        <div class="chips small" id="chatChips">
+          <button data-cmd="help">Help</button><button data-cmd="brief me">Brief me</button><button data-cmd="show my tasks">My tasks</button>
+          <button data-cmd="show reminders">Reminders</button><button data-cmd="explain this error">Explain screen</button><button data-cmd="system info">System</button>
+        </div>
+        <form class="composer" id="composer">
+          <textarea id="input" rows="1" placeholder="Message Nova… (Enter to send, Shift+Enter for new line)"></textarea>
+          <button type="button" class="icon mic" id="chatMic" title="Talk"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg></button>
+          <button type="submit" class="icon send" title="Send"><svg viewBox="0 0 24 24"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg></button>
+        </form>
+      </div>
+      <aside id="activityPanel" class="activity">
+        <div class="act-head"><b>Activity</b><span class="muted small" id="actCount"></span><button class="ghost icon-btn" id="actHide" title="Hide">✕</button></div>
+        <div class="act-sub muted small">What Nova is doing in the background.</div>
+        <div id="actRunning"></div>
+        <div class="act-divider" id="actDivider" style="display:none">Recent</div>
+        <div id="actDone"></div>
+      </aside>
+    </section>
+    <section id="sec-skills" class="sec">
+      <div class="sec-head"><h2>What I can do</h2></div>
+      <div id="skills" class="skills"></div>
+    </section>
+    <section id="sec-reading" class="sec">
+      <div class="sec-head"><h2>Reading list</h2><div class="muted small">Save links to read later. Opening one marks it read.</div></div>
+      <div class="card">
+        <div class="http-row"><input id="rdUrl" placeholder="Paste a link (https://…)"><input id="rdTitle" placeholder="Title (optional)" style="max-width:220px"><button class="primary" id="rdAdd">Save</button></div>
+        <div class="rd-filter" id="rdFilter"><button class="on" data-rf="unread">To read</button><button data-rf="read">Read</button><button data-rf="all">All</button></div>
+        <div id="rdList" class="rd-list"></div>
+      </div>
+    </section>
+
+    <section id="sec-checklists" class="sec">
+      <div class="sec-head"><h2>Checklists</h2><div class="muted small">Reusable lists — tick items off, then reset to run them again.</div></div>
+      <div class="card">
+        <div class="http-row"><input id="clName" placeholder="New checklist name (e.g. Packing)"><button class="primary" id="clNew">Create</button></div>
+        <textarea id="clItems" rows="2" placeholder="Items, comma-separated (optional): passport, charger, meds" spellcheck="false" style="margin-top:6px;width:100%;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--panel-2);color:var(--text)"></textarea>
+      </div>
+      <div id="clList"></div>
+    </section>
+
+    <section id="sec-review" class="sec">
+      <div class="sec-head"><h2>Weekly review</h2><div class="muted small">A snapshot of your last 7 days, from your own data.</div></div>
+      <div class="card"><div id="rvBody" class="rv-body"></div><div class="btnrow"><button class="ghost" id="rvRefresh">Refresh</button></div></div>
+    </section>
+
+    <section id="sec-developer" class="sec">
+      <div class="sec-head"><h2>Developer</h2><div class="muted small">Offline tools. Nothing leaves your machine.</div></div>
+      <div class="dtabs" id="dTabs">
+        <button class="on" data-dtab="tools">Tools</button><button data-dtab="secrets">Secrets &amp; keys</button><button data-dtab="vault">Vault</button><button data-dtab="qr">QR</button><button data-dtab="run">Run &amp; watch</button><button data-dtab="text">Text</button><button data-dtab="api">HTTP &amp; ports</button>
+      </div>
+
+      <div class="card dpane" data-dtab="tools"><h3>🧰 Dev toolbox</h3>
+        <div class="muted small" style="margin-bottom:6px">Works on the text box below, or leave it empty to use your clipboard. Results are copied automatically.</div>
+        <textarea id="dtIn" rows="4" placeholder="Paste JSON, a JWT, base64, a timestamp, a hex colour…" spellcheck="false"></textarea>
+        <div class="dt-tools" id="dtTools"></div>
+        <div class="dt-regex" id="dtRegexRow" style="display:none">
+          <input id="dtRe" placeholder="/pattern/" spellcheck="false"><input id="dtReFlags" placeholder="flags (gi)" style="max-width:90px" spellcheck="false"><button class="primary" id="dtReGo">Test regex</button>
+        </div>
+        <pre id="dtOut" class="dt-out"></pre>
+        <div class="btnrow"><button class="ghost" id="dtCopy">Copy result</button><span id="dtMsg" class="muted small"></span></div>
+      </div>
+
+      <div class="card dpane" data-dtab="tools"><h3>💾 Snippets</h3>
+        <div class="grid2">
+          <input id="snName" placeholder="Snippet name (e.g. abap-select-single)">
+          <input id="snLang" placeholder="Language (optional)">
+        </div>
+        <textarea id="snText" rows="4" placeholder="Paste the code / text to store" spellcheck="false"></textarea>
+        <div class="btnrow"><button class="primary" id="snSave">Save snippet</button><span class="muted small">Then say or search "insert snippet &lt;name&gt;" to type it into any app.</span></div>
+        <input id="snSearch" placeholder="Search snippets…" style="margin-top:8px">
+        <div id="snList" class="sn-list"></div>
+      </div>
+
+      <div class="card dpane" data-dtab="run"><h3>🚀 Launcher</h3>
+        <div class="btnrow">
+          <button class="ghost" id="lnCode">Open VS Code</button>
+          <button class="ghost" id="lnTerm">Terminal</button>
+          <button class="ghost" id="lnGit">Git status</button>
+        </div>
+        <div class="grid2" style="margin-top:8px">
+          <div><label class="lbl">Editor command</label><input id="dvEditor" placeholder="code (default)"></div>
+          <div><label class="lbl">Open localhost port</label><div class="krow"><input id="lnPort" placeholder="3000" inputmode="numeric"><button class="ghost" id="lnPortGo">Open</button></div></div>
+        </div>
+        <label class="lbl">Repos (one path per line — the first is the default for Git/Terminal)</label>
+        <textarea id="dvRepos" rows="2" placeholder="C:\Projects\optieximc&#10;C:\Projects\nova" spellcheck="false"></textarea>
+        <div class="btnrow"><button class="ghost" id="dvSave">Save launcher settings</button></div>
+        <pre id="lnOut" class="dt-out"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="tools" style="display:none"><h3>🔁 Converters</h3>
+        <textarea id="cvIn" rows="4" placeholder="Input (JSON, .env, query string, HTML…)" spellcheck="false"></textarea>
+        <div class="dt-tools" id="cvTools"></div>
+        <div class="grid2" style="margin-top:6px"><input id="cvName" placeholder="Type name (JSON→TS/ABAP)"></div>
+        <pre id="cvOut" class="dt-out"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="secrets" style="display:none"><h3>🔑 Secrets &amp; keys</h3>
+        <div class="dt-tools" id="skTools"></div>
+        <div class="grid2" style="margin-top:6px"><input id="skLen" placeholder="bytes/words (optional)" inputmode="numeric"><div></div></div>
+        <pre id="skOut" class="dt-out"></pre>
+        <div class="muted small">Generated locally with your OS crypto. Copy, use, and don't commit them.</div>
+      </div>
+
+      <div class="card dpane" data-dtab="qr" style="display:none"><h3>📱 QR code</h3>
+        <div class="grid2"><input id="qrIn" placeholder="URL, Wi-Fi string, text…"><button class="primary" id="qrGo">Make QR</button></div>
+        <div class="muted small" style="margin:4px 0">Offline. Wi-Fi format: <code>WIFI:T:WPA;S:NetworkName;P:password;;</code></div>
+        <div id="qrOut" class="qr-out"></div>
+        <div class="btnrow"><button class="ghost" id="qrSave" style="display:none">Save as .svg</button></div>
+      </div>
+
+      <div class="card dpane" data-dtab="vault" style="display:none"><h3>🔒 API key vault</h3>
+        <div id="vaultLocked">
+          <p class="muted small" id="vaultMsg">Store API keys and secrets encrypted on this machine (AES-256). One passphrase unlocks them.</p>
+          <div class="grid2"><input id="vaultPass" type="password" placeholder="Vault passphrase"><button class="primary" id="vaultGo">Unlock</button></div>
+        </div>
+        <div id="vaultOpen" style="display:none">
+          <div class="grid2"><input id="vaultName" placeholder="Name (e.g. GROQ_KEY)"><input id="vaultVal" type="password" placeholder="Secret value"></div>
+          <div class="btnrow"><input id="vaultNote" placeholder="Note (optional)" style="flex:1"><button class="primary" id="vaultAdd">Add</button><button class="ghost" id="vaultLock">Lock</button></div>
+          <div id="vaultList" class="sn-list"></div>
+          <div class="muted small">Copying a secret clears the clipboard automatically after ~25 seconds.</div>
+        </div>
+      </div>
+
+      <div class="card dpane" data-dtab="run" style="display:none"><h3>⌨️ Run a command</h3>
+        <div class="grid2"><input id="rcCmd" placeholder="e.g. npm run build" spellcheck="false"><button class="primary" id="rcGo">Run</button></div>
+        <input id="rcCwd" placeholder="Working folder (optional — defaults to your first repo)" style="margin-top:6px">
+        <pre id="rcOut" class="dt-out"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="run" style="display:none"><h3>🧩 Command workflows</h3>
+        <div class="grid2"><input id="wfName" placeholder="Workflow name (e.g. deploy)"><input id="wfCwd" placeholder="Folder (optional)"></div>
+        <textarea id="wfCmds" rows="3" placeholder="One command per line" spellcheck="false"></textarea>
+        <div class="btnrow"><button class="primary" id="wfSave">Save</button><span class="muted small">Then run it any time, here or by voice ("run workflow deploy").</span></div>
+        <div id="wfList" class="sn-list"></div>
+        <pre id="wfOut" class="dt-out"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="run" style="display:none"><h3>👁 File &amp; folder watch</h3>
+        <div class="grid2"><input id="wtPath" placeholder="Full path to a file or folder"><button class="primary" id="wtAdd">Watch</button></div>
+        <div id="wtList" class="sn-list"></div>
+        <div class="muted small">Nova nudges you when a watched file or folder changes.</div>
+      </div>
+
+      <div class="card dpane" data-dtab="api" style="display:none"><h3>🌐 HTTP request</h3>
+        <div class="http-row"><select id="hMethod"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select><input id="hUrl" placeholder="https://api… or http://localhost:3000/…"><button class="primary" id="hGo">Send</button></div>
+        <textarea id="hHeaders" rows="2" placeholder="Headers, one per line: Authorization: Bearer …" spellcheck="false"></textarea>
+        <textarea id="hBody" rows="3" placeholder="Request body (JSON for POST/PUT…)" spellcheck="false"></textarea>
+        <div id="hStatus" class="muted small"></div>
+        <pre id="hOut" class="dt-out"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="api" style="display:none"><h3>🔌 Ports &amp; info</h3>
+        <div class="btnrow"><button class="ghost" id="ptList">Listening ports</button><button class="ghost" id="ptInfo">Dev/system info</button></div>
+        <div class="http-row" style="margin-top:6px"><input id="ptKill" placeholder="Port to free (e.g. 3000)" inputmode="numeric" style="max-width:220px"><button class="ghost" id="ptKillGo">Free port</button></div>
+        <pre id="ptOut" class="dt-out"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="text" style="display:none"><h3>🔤 Text utilities</h3>
+        <textarea id="txIn" rows="4" placeholder="Paste text or a list of lines…" spellcheck="false"></textarea>
+        <div class="dt-tools" id="txTools"></div>
+        <pre id="txOut" class="dt-out"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="text" style="display:none"><h3>🪢 Diff</h3>
+        <div class="grid2" style="grid-template-columns:1fr 1fr"><textarea id="dfA" rows="6" placeholder="Original" spellcheck="false"></textarea><textarea id="dfB" rows="6" placeholder="Changed" spellcheck="false"></textarea></div>
+        <div class="btnrow"><button class="primary" id="dfGo">Compare</button><span id="dfMsg" class="muted small"></span></div>
+        <pre id="dfOut" class="dt-out diff"></pre>
+      </div>
+
+      <div class="card dpane" data-dtab="text" style="display:none"><h3>📝 Scratchpad</h3>
+        <div class="muted small">A persistent code/notes buffer — saved automatically on this machine.</div>
+        <textarea id="spIn" rows="8" placeholder="Scratch away…" spellcheck="false" style="font-family:'Cascadia Code',Consolas,monospace"></textarea>
+        <div class="muted small" id="spMsg"></div>
+      </div>
+
+      <div class="card dpane" data-dtab="text" style="display:none"><h3>⬇️ Markdown preview</h3>
+        <div class="grid2" style="grid-template-columns:1fr 1fr"><textarea id="mdIn" rows="8" placeholder="# Markdown here" spellcheck="false"></textarea><div id="mdOut" class="md-prev"></div></div>
+      </div>
+    </section>
+    <section id="sec-settings" class="sec settings">
+      <div class="sec-head"><h2>Settings</h2><div class="head-actions"><span id="saved" class="saved">Saved ✓</span><button class="primary" id="btnSave">Save</button></div></div>
+
+      <div class="card"><h3>Desktop companion</h3>
+        <label class="switch-row"><span>Show Nova on my desktop (always on top, with speech bubbles)</span><input type="checkbox" id="s_comp"><span class="switch"></span></label>
+        <label class="lbl">Companion size <span id="sizeVal" class="muted"></span></label><input type="range" id="s_size" min="64" max="140" step="4">
+        <label class="switch-row"><span>Walk over and wave to get my attention when a reminder goes off</span><input type="checkbox" id="s_walk"><span class="switch"></span></label>
+        <label class="lbl">Personality · liveliness</label>
+        <div class="seg" id="s_live"><button data-v="calm">Calm</button><button data-v="normal">Normal</button><button data-v="playful">Playful</button></div>
+        <label class="switch-row"><span>Wander around the screen now and then</span><input type="checkbox" id="s_wander"><span class="switch"></span></label>
+        <label class="switch-row"><span>Curious moments (looks around, stretches, notices your cursor, likes being petted)</span><input type="checkbox" id="s_curious"><span class="switch"></span></label>
+        <label class="switch-row"><span>Occasional thought bubbles (helpful nudges, max every ~20 min)</span><input type="checkbox" id="s_thoughts"><span class="switch"></span></label>
+        <label class="switch-row"><span>React to what I do in the app (sips water, cheers when tasks are done, takes notes…)</span><input type="checkbox" id="s_react"><span class="switch"></span></label>
+        <label class="switch-row"><span>Show replies on the desktop avatar when the app is in the background</span><input type="checkbox" id="s_echo"><span class="switch"></span></label>
+        <label class="switch-row"><span>Status pill above the avatar (focus timer, recording, next meeting, Do Not Disturb)</span><input type="checkbox" id="s_pill"><span class="switch"></span></label>
+        <label class="switch-row"><span>🔕 Do Not Disturb (pauses wandering, bubbles and break nudges; reminders still come through)</span><input type="checkbox" id="s_dnd"><span class="switch"></span></label>
+        <div class="btnrow"><button class="ghost" id="btnWanderNow">Take a walk now</button><button class="ghost" id="btnPerch">Visit my window</button></div>
+        <label class="switch-row"><span>Open this app window when Nova starts</span><input type="checkbox" id="s_openApp"><span class="switch"></span></label>
+        <label class="switch-row"><span>Start Nova when Windows starts</span><input type="checkbox" id="s_login"><span class="switch"></span></label>
+      </div>
+
+      <div class="card" id="portCard" style="display:none"><h3>🔒 Portable security (USB)</h3>
+        <p class="muted small">You're running Nova from a portable drive. Windows can't protect your AI keys across different PCs, so set a PIN to encrypt them. You'll enter it once each time you start Nova on a new computer.</p>
+        <div id="portState" class="muted small" style="margin:4px 0 8px"></div>
+        <div class="grid2">
+          <input id="portPin" type="password" inputmode="numeric" placeholder="New PIN (4+ characters)">
+          <button class="primary" id="portSetPin">Set / change PIN</button>
+        </div>
+        <div class="btnrow"><button class="ghost" id="portPlain">Store keys without a PIN</button><span class="muted small">(keys are only lightly obfuscated on the USB — fine if the drive stays with you)</span></div>
+        <div class="btnrow"><button class="ghost" id="portEject">⏏ Safe eject (quit &amp; save)</button></div>
+      </div>
+      <div class="card"><h3>Appearance &amp; developer</h3>
+        <label class="switch-row"><span><b>Developer mode</b> — dev avatar skin, dark theme, and the Developer tools (snippets, JSON/JWT/base64/hash/uuid/cron, launchers). Your PA features stay.</span><input type="checkbox" id="s_dev"><span class="switch"></span></label>
+        <label class="lbl">Theme</label>
+        <select id="s_theme"><option value="auto">Auto (dark in developer mode)</option><option value="light">Always light</option><option value="dark">Always dark</option></select>
+        <div class="muted small" style="margin-top:6px">Tip: press <b>Ctrl+Shift+P</b> anywhere for the command palette.</div>
+      </div>
+      <div class="card"><h3>AI assistant · optional</h3>
+        <label class="switch-row"><span><b>Use AI</b> for open questions, writing help, screen understanding and multi-step tasks. Nova's PA features work without it.</span><input type="checkbox" id="s_ai"><span class="switch"></span></label>
+        <div id="aiBody">
+        <p class="muted small" style="margin:6px 0 4px">Pick any of these. All three are free. Groq is the quickest to set up (2 minutes, no card) and also powers voice input.</p>
+
+        <div class="prov">
+          <div class="prov-h"><b>⚡ Groq</b> <span class="tag">free · very fast · voice included</span><a class="link" href="https://console.groq.com/keys" target="_blank">Get free key ↗</a></div>
+          <div class="krow"><input id="k_groq" type="password" placeholder="gsk_…"><button class="ghost" data-clear="groq">Clear</button></div>
+        </div>
+        <div class="prov">
+          <div class="prov-h"><b>🌐 OpenRouter</b> <span class="tag">free models · many choices</span><a class="link" href="https://openrouter.ai/keys" target="_blank">Get free key ↗</a></div>
+          <div class="krow"><input id="k_openrouter" type="password" placeholder="sk-or-…"><button class="ghost" data-clear="openrouter">Clear</button></div>
+        </div>
+        <div class="prov">
+          <div class="prov-h"><b>🏠 Ollama</b> <span class="tag">runs on your PC · offline · private · no key</span><a class="link" href="#" id="olInstall">Install Ollama ↗</a></div>
+          <div class="muted small" id="olStatus">Checking…</div>
+          <label class="switch-row"><span>Use Ollama</span><input type="checkbox" id="s_ollama"><span class="switch"></span></label>
+          <div class="ol-models" id="olModels"></div>
+          <div class="ol-pull">
+            <button class="ghost" data-pull="llama3.2:3b">llama3.2:3b <span class="muted">· 2 GB · fastest</span></button>
+            <button class="ghost" data-pull="gemma3:4b">gemma3:4b <span class="muted">· 3.3 GB · can see your screen</span></button>
+            <button class="ghost" data-pull="qwen2.5:7b">qwen2.5:7b <span class="muted">· 4.7 GB · smartest</span></button>
+          </div>
+          <div class="bar" id="olBar"><div></div></div><div class="muted small" id="olPullMsg"></div>
+        </div>
+
+        <details class="adv"><summary>Paid / other providers (Gemini, Claude, OpenAI, custom endpoint)</summary>
+          <label class="lbl">Gemini API key</label><div class="krow"><input id="k_gemini" type="password" placeholder="AIza…"><button class="ghost" data-clear="gemini">Clear</button></div>
+          <label class="lbl">Claude (Anthropic) API key</label><div class="krow"><input id="k_anthropic" type="password" placeholder="sk-ant-…"><button class="ghost" data-clear="anthropic">Clear</button></div>
+          <label class="lbl">OpenAI API key</label><div class="krow"><input id="k_openai" type="password" placeholder="sk-…"><button class="ghost" data-clear="openai">Clear</button></div>
+          <label class="lbl">Grok (xAI) API key <span class="muted">(console.x.ai — paid; different from Groq above)</span></label><div class="krow"><input id="k_grok" type="password" placeholder="xai-…"><button class="ghost" data-clear="grok">Clear</button></div>
+          <label class="lbl">Custom OpenAI-compatible endpoint <span class="muted">(LM Studio, Cerebras, Mistral, GitHub Models, a company gateway…)</span></label>
+          <div class="grid2"><input id="e_custom" placeholder="https://host/v1  (LM Studio: http://localhost:1234/v1)"><div class="krow"><input id="k_custom" type="password" placeholder="key (if needed)"><button class="ghost" data-clear="custom">Clear</button></div></div>
+        </details>
+
+        <label class="lbl">Priority <span class="muted">(first available is used; the next takes over on failure)</span></label><ul class="order" id="order"></ul>
+        <div class="btnrow"><button class="ghost" id="btnTest">Test connections</button><button class="ghost" id="btnModels">Find available models</button></div>
+        <pre id="testOut" class="out"></pre>
+        <details class="adv"><summary>Model names (auto-picked; change only if you want)</summary>
+        <div class="grid2">
+          <div><label class="lbl">Groq model</label><input id="m_groq" list="dl_groq"><datalist id="dl_groq"></datalist></div>
+          <div><label class="lbl">OpenRouter model</label><input id="m_openrouter" list="dl_openrouter" placeholder="auto (free)"><datalist id="dl_openrouter"></datalist></div>
+          <div><label class="lbl">Ollama model</label><input id="m_ollama" list="dl_ollama" placeholder="auto (installed)"><datalist id="dl_ollama"></datalist></div>
+          <div><label class="lbl">Custom model</label><input id="m_custom" list="dl_custom"><datalist id="dl_custom"></datalist></div>
+          <div><label class="lbl">Gemini model</label><input id="m_gemini" list="dl_gemini"><datalist id="dl_gemini"></datalist></div>
+          <div><label class="lbl">Claude model</label><input id="m_anthropic" list="dl_anthropic"><datalist id="dl_anthropic"></datalist></div>
+          <div><label class="lbl">OpenAI model</label><input id="m_openai" list="dl_openai"><datalist id="dl_openai"></datalist></div>
+          <div><label class="lbl">Grok (xAI) model</label><input id="m_grok" list="dl_grok" placeholder="auto (grok-4-fast)"><datalist id="dl_grok"></datalist></div>
+          <div><label class="lbl">Groq speech-to-text</label><input id="m_groqStt"></div>
+          <div><label class="lbl">OpenAI speech-to-text</label><input id="m_openaiStt"></div>
+        </div></details>
+        </div>
+      </div>
+
+      <div class="card"><h3>Voice</h3>
+        <label class="switch-row"><span>Speak replies</span><input type="checkbox" id="s_speak"><span class="switch"></span></label>
+        <label class="lbl">Voice engine</label>
+        <div class="seg" id="s_ttsEngine"><button data-v="system" class="on">Windows (free)</button><button data-v="elevenlabs">ElevenLabs (natural)</button></div>
+        <div id="ttsSystem">
+          <label class="lbl">Voice</label><select id="s_voice"></select>
+          <div class="muted small">Free Windows voices. More natural ones: Windows Settings → Time &amp; language → Speech → Add voices.</div>
+        </div>
+        <div id="ttsEleven" style="display:none">
+          <label class="lbl">ElevenLabs API key <span class="muted">(elevenlabs.io → Profile → API key; stays encrypted on this PC)</span></label>
+          <div class="krow"><input id="k_elevenlabs" type="password" placeholder="sk_… or xi-…"><button class="ghost" data-clear="elevenlabs">Clear</button></div>
+          <label class="lbl">Voice</label>
+          <div class="krow"><select id="s_elVoice" style="flex:1"><option value="">— load voices —</option></select><button class="ghost" id="elLoad">Load voices</button></div>
+          <label class="lbl">Model</label>
+          <select id="s_elModel"><option value="eleven_turbo_v2_5">Turbo v2.5 — fast, low-latency (recommended)</option><option value="eleven_multilingual_v2">Multilingual v2 — richest quality</option><option value="eleven_flash_v2_5">Flash v2.5 — fastest</option></select>
+          <div class="muted small" id="elMsg" style="min-height:14px"></div>
+          <div class="muted small">Nova reads chat replies and the desktop avatar's speech aloud in this voice. It stays silent until a key and voice are set. Uses your ElevenLabs quota.</div>
+        </div>
+        <label class="lbl">Speed <span id="rateVal" class="muted"></span></label><input type="range" id="s_rate" min="0.7" max="1.6" step="0.05">
+        <button class="ghost" id="btnVoice">Preview voice</button>
+        <label class="switch-row"><span>Wake word: say "Hey <span class="nm">Nova</span>" (offline, free)</span><input type="checkbox" id="s_wake"><span class="switch"></span></label>
+        <label class="lbl">Wake word strictness <span id="wakeVal" class="muted"></span></label><input type="range" id="s_wakeS" min="0.5" max="0.95" step="0.01">
+        <div class="muted small" id="wakeStatus"></div>
+        <label class="switch-row"><span>Keep listening ~5 s after a voice answer (follow-ups)</span><input type="checkbox" id="s_follow"><span class="switch"></span></label>
+      </div>
+
+      <div class="card"><h3>Screen, context &amp; location</h3>
+        <label class="lbl">Send a screenshot to the AI</label>
+        <select id="s_screen"><option value="auto">Automatically when needed (recommended)</option><option value="always">Always</option><option value="never">Never</option></select>
+        <label class="lbl">Weather city <span class="muted">(empty = auto-detect)</span></label><input id="s_city" placeholder="e.g. Kochi">
+      </div>
+
+      <div class="card"><h3>Outlook (this PC)</h3>
+        <label class="switch-row"><span>Sync my Outlook calendar into Nova (reads the Outlook installed on this PC; no sign-in)</span><input type="checkbox" id="olOn"><span class="switch"></span></label>
+        <div class="btnrow"><button class="ghost" id="olSync">Sync now</button><span class="muted small" id="olStatus"></span></div>
+        <div class="muted small">Meetings appear in Calendar with a "Join" button for Teams links. Nova can also open email drafts ("draft an email to Vivek about …") and check unread mail ("check my email"). It never sends anything on its own.</div>
+      </div>
+
+      <div class="card"><h3>Phone notifications (free, via ntfy)</h3>
+        <label class="switch-row"><span>Send reminders, alarms, events and birthdays to my phone</span><input type="checkbox" id="nfOn"><span class="switch"></span></label>
+        <label class="lbl">Your private topic name</label><div class="krow"><input id="nfTopic" placeholder="nova-xxxxxxxx"><button class="ghost" id="nfGen">Generate</button><button class="ghost" id="nfTest">Send test</button></div>
+        <label class="switch-row"><span>Let me send commands from my phone (to topic <b id="nfIn">…-in</b>)</span><input type="checkbox" id="nfInbox"><span class="switch"></span></label>
+        <div class="muted small">1) Install the free <b>ntfy</b> app (Android/iPhone). 2) Subscribe to your topic name. 3) To add things from your phone, also subscribe to the "-in" topic and publish messages like "remind me at 5 to call Vivek". Anyone who knows the topic name can read it, so keep it long and random.</div>
+      </div>
+
+      <div class="card"><h3>Day planner</h3>
+        <div class="grid2"><div><label class="lbl">Workday starts</label><input id="plStart" type="time"></div><div><label class="lbl">Workday ends</label><input id="plEnd" type="time"></div>
+        <div><label class="lbl">Lunch</label><input id="plLunch" placeholder="13:00-14:00"></div><div><label class="lbl">Default task length (min)</label><input id="plBlock" type="number" min="15" max="240"></div></div>
+        <label class="switch-row"><span>Roll unfinished tasks over to today automatically</span><input type="checkbox" id="plRoll"><span class="switch"></span></label>
+      </div>
+
+      <div class="card"><h3>Backup &amp; restore</h3>
+        <div class="muted small">Export everything (tasks, reminders, events, notes, habits, people, money, journal…) to a JSON file. API keys are never exported.</div>
+        <div class="btnrow"><button class="ghost" id="btnExport">Export data…</button><button class="ghost" id="btnImport">Import backup…</button></div>
+      </div>
+      <div class="card" id="accountCard"><h3>👤 Account &amp; sync (phone + computer)</h3>
+        <div class="muted small" id="acctStatus">Sign in with the same email &amp; PIN as your phone. Your tasks, reminders, notes, habits and more stay in sync on both.</div>
+        <div id="acctSignedOut">
+          <div class="lbl" style="margin-top:10px">Supabase Project URL</div><input id="acUrl" placeholder="https://xxxx.supabase.co">
+          <div class="lbl" style="margin-top:8px">Anon public key</div><input id="acKey" placeholder="eyJhbGciOi…">
+          <div class="muted small" style="margin-top:6px">Use the same project as your phone (from setup). Then sign in — the account and PIN are shared.</div>
+          <div class="btnrow"><button class="primary" id="acConnect">Save &amp; sign in</button></div>
+        </div>
+        <div id="acctSignedIn" style="display:none">
+          <div class="muted small" style="margin:8px 0">Signed in as <b id="acEmail">—</b>. Synced with your phone.</div>
+          <div class="btnrow"><button class="ghost" id="acSyncNow">Sync now</button><button class="ghost" id="acSwitch">Sign out / switch account</button></div>
+        </div>
+      </div>
+      <div class="card" id="cloudSyncCard"><h3>☁️ Cloud sync (Supabase) — legacy</h3>
+        <div class="muted small" id="cloudStatus">Keep this computer and your phone in sync through your own Supabase project. Your data is end-to-end encrypted — Supabase only ever stores ciphertext.</div>
+        <div class="lbl" style="margin-top:10px">Project URL</div><input id="cfUrl" placeholder="https://xxxx.supabase.co">
+        <div class="grid2" style="margin-top:8px"><div><div class="lbl">Anon public key</div><input id="cfKey" placeholder="eyJhbGciOi…"></div><div><div class="lbl">Account name (same on all devices)</div><input id="cfAcc" placeholder="raisa-nova"></div></div>
+        <div class="lbl" style="margin-top:8px">Pass-phrase (encrypts your data — never leaves this device)</div><input id="cfPass" type="password" placeholder="a few words only you know">
+        <div class="muted small" id="cfErr" style="color:var(--red);min-height:16px;margin-top:6px"></div>
+        <div class="btnrow"><button class="primary" id="cfSave">Connect &amp; sync</button><button class="ghost" id="cfNow" style="display:none">Sync now</button><button class="ghost" id="cfOff" style="display:none">Disconnect</button></div>
+      </div>
+      <div class="card danger"><h3>⚠️ Clear data</h3>
+        <div class="muted small">Start fresh. Export a backup first if you might want your data back.</div>
+        <div class="btnrow" style="margin-top:8px"><button class="ghost" id="dzExport">Export backup first</button></div>
+        <div class="dz-row">
+          <div><b>Clear my data</b><div class="muted small">Wipes tasks, reminders, notes, events, habit history, money, journal, reading list, checklists… Keeps your settings, AI keys and vault.</div></div>
+          <button class="ghost warn" id="dzClear">Clear data…</button>
+        </div>
+        <div class="dz-row">
+          <div><b>Full factory reset</b><div class="muted small">Wipes everything, including settings and AI keys — like a brand-new install.</div></div>
+          <button class="ghost warn" id="dzReset">Full reset…</button>
+        </div>
+      </div>
+
+      <div class="card" id="localPinCard"><h3>🔐 App lock (PIN)</h3>
+        <div class="muted small" id="pinState">Lock Nova with a PIN. You'll be asked for it every time you open the app.</div>
+        <div class="grid2" style="margin-top:8px">
+          <input id="pinOld" type="password" inputmode="numeric" placeholder="Current PIN (if set)" style="display:none">
+          <div></div>
+          <input id="pinNew" type="password" inputmode="numeric" placeholder="New PIN (4+ digits)">
+          <input id="pinNew2" type="password" inputmode="numeric" placeholder="Confirm new PIN">
+        </div>
+        <div class="muted small" id="pinErr" style="color:var(--red);min-height:14px;margin-top:4px"></div>
+        <div class="btnrow"><button class="primary" id="pinSet">Set PIN</button><button class="ghost" id="pinRemove" style="display:none">Remove PIN</button></div>
+      </div>
+
+      <div class="card"><h3>General</h3>
+        <div class="grid2">
+          <div><label class="lbl">Assistant name</label><input id="s_name"></div>
+          <div><label class="lbl">Your name</label><input id="s_user"></div>
+          <div><label class="lbl">Open / hide hotkey</label><input id="s_hkT"></div>
+          <div><label class="lbl">Talk hotkey</label><input id="s_hkL"></div>
+        </div>
+        <div class="muted small" id="hkActive"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="appLockOv" class="applock-ov" style="display:none">
+  <div class="applock-box">
+    <div class="applock-bot" id="appLockBot"></div>
+    <h2 id="appLockTitle">Welcome back</h2>
+    <p class="muted">Enter your PIN to open Nova.</p>
+    <div class="pin-dots" id="pinDots"></div>
+    <input id="appLockPin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN">
+    <div id="appLockErr" class="lock-err"></div>
+    <button class="primary" id="appLockGo">Unlock</button>
+  </div>
+</div>
+<div id="lockOverlay" class="lock-ov" style="display:none">
+  <div class="lock-box">
+    <div class="lock-bot" id="lockBot"></div>
+    <h2>Welcome back</h2>
+    <p class="muted">Enter your PIN to unlock Nova's AI keys on this computer.</p>
+    <input id="lockPin" type="password" inputmode="numeric" placeholder="PIN" autofocus>
+    <div id="lockErr" class="lock-err"></div>
+    <button class="primary" id="lockGo">Unlock</button>
+    <button class="ghost" id="lockSkip">Skip (PA features only)</button>
+  </div>
+</div>
+<div id="toasts"></div>
+<script src="../shared/core.js"></script>
+<script src="../shared/avatar.js"></script>
+<script src="../shared/session.js"></script>
+<script src="../shared/recorder.js"></script>
+<script src="../shared/sync-cloud.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+NOVA v8.2 — what changed
+========================
+
+You asked, this fixes it:
+
+1. Chat tab now feels like a real AI chat
+   • Centered conversation, rounded message bubbles, your messages on the
+     right with a warm accent, Nova's on the left with her avatar.
+   • Animated "typing" dots while she's thinking, a streaming caret while
+     she writes, smooth auto-scroll (it won't yank you down while you read
+     back), and a floating rounded composer.
+   • A friendly welcome screen with four one-tap starters.
+
+2. "What's on my screen" works even without an AI
+   • If no AI is connected, Nova now reads the on-screen text with Windows'
+     built-in OCR and shows it to you.
+   • If a screen capture fails, she tells you instead of staying silent.
+   • With a vision AI connected, she still sees and explains the screen.
+
+3. The desktop helper no longer makes the mouse flicker
+   • Click-through is now driven by a single owner in the background with a
+     little hysteresis, and the "forward mouse" mode that caused the OS
+     cursor to flicker between windows is gone. The avatar still catches
+     clicks, drops and hovers exactly where you'd expect.
+
+4. ElevenLabs voice (natural speech)
+   • Settings → Voice → "ElevenLabs (natural)". Paste your API key, press
+     "Load voices", pick one. Nova then reads chat replies and the desktop
+     avatar's speech in that voice. Stays silent until you add a key.
+     The key is stored encrypted on your PC and never leaves it except to
+     ElevenLabs. Falls back to the free Windows voice automatically.
+
+5. More personality
+   • Every avatar (home, chat, lock, desktop) now blinks naturally and does
+     the odd idle flourish — look-around, tilt, little nod — so Nova feels
+     alive, not frozen. Respects "reduce motion".
+
+6. Floating desktop widgets, polished + two new ones
+   • Frosted, layered cards with softer shadows.
+   • NEW: "Focus timer" card (start 25/45, live countdown, stop) and
+     "Next meeting" card (how long till it, title, time, Join button).
+
+7. A tidier sidebar
+   • A core set is shown by default (Today, Calendar, Reminders, Tasks,
+     Focus, Documents, Widgets, Chat, Settings). "More" reveals everything
+     else, and it's remembered. Nothing was removed — just tucked away.
+
+8. Lock on every open
+   • Settings → "App lock (PIN)". Set a 4+ digit PIN and Nova asks for it
+     every time you open the app (and every time you bring it back from the
+     tray). Separate from the AI-key vault PIN.
+
+Note: items 2, 3, 4, 6 and the lock-on-reopen involve Windows behaviour that
+can only be fully exercised on a PC — please give them a quick test after you
+build.

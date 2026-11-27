@@ -1,0 +1,21 @@
+Nova — v8.1
+===========
+
+• PREMIUM refresh — layered materials, soft depth, refined dark mode,
+  gradient buttons, tactile press, and smooth section transitions.
+• Apple-style WIDGETS board (Widgets section) — up next, activity rings,
+  water, focus, tasks, countdown, weather, quick-add.
+• Reduce-motion support (follows Windows' animation setting).
+• Meeting QUIET mode — right-click the avatar → "Quiet 1h"; auto-quiets
+  when your camera is in use.
+• First-run TOUR.
+• ☁️ Supabase CLOUD SYNC (Settings → Cloud sync) — end-to-end encrypted;
+  keeps this computer and your phone in sync. See SUPABASE-SETUP.md.
+
+BUILD THE .EXE
+  Double-click  "build-exe (double-click).bat"
+  → dist\Nova-8.1.0-x64.exe (installer) + Nova-8.1.0-portable.exe
+  (or push to GitHub and use github-workflow-build-exe.yml)
+
+RUN WITHOUT BUILDING
+  npm install   then   npm start

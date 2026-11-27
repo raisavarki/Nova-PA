@@ -1,0 +1,43 @@
+Nova Companion — v7.6  (20 new avatar features)
+===============================================
+
+Nova's on-desktop avatar got a lot more alive. 20 new things:
+
+NEW REACTIONS (17 animations)
+  Nova now plays these on its own at the right moments, and you can
+  trigger any of them yourself from the new Tricks menu (below):
+   1. Laugh          — giggles, head rocking back
+   2. Blush          — goes shy, cheeks glowing
+   3. Spin           — a quick full twirl
+   4. Backflip       — leaps up and flips over
+   5. Shrug          — “who knows?” arms out
+   6. Facepalm       — hand to face when something goes wrong
+   7. Heart-eyes     — swoons, eyes turn to hearts
+   8. Sneeze         — winds up… achoo!
+   9. Shiver         — brrr, cold shake
+  10. Juggle         — juggles three glowing orbs
+  11. Meditate       — calm float with a zen aura
+  12. Thumbs-up      — approval with a big green check
+  13. Magic          — a sparkly “ta-da” flourish
+  14. Peekaboo       — ducks down, then springs up
+  15. High-five      — raises a hand for a slap
+  16. Wink           — a quick cheeky wink
+  17. Celebrate      — confetti + cheer when you hit a goal
+                       (e.g. water goal reached, inbox cleared)
+
+NEW SYSTEMS
+  18. Colour skins   — dress Nova in Cream, Mint, Berry or Sky.
+                       Your choice is saved. (Tricks menu → Colour)
+  19. Time-of-day moods — Nova idles differently through the day:
+                       morning stretches & yawns, midday curiosity,
+                       evening winks & nods, sleepy at night.
+  20. Purr when petted — stroke Nova’s head and it purrs, blushes,
+                       and sometimes swoons with little hearts.
+
+HOW TO PLAY THEM
+  Right-click the avatar → the quick panel now has a **Tricks** tab
+  with every reaction, plus the colour picker. Click any to play it.
+  Nova also plays fitting reactions automatically as you use the app
+  (e.g. dev mode → magic, rewards → celebrate).
+
+Nothing was removed. Run it the same way:  npm install  then  npm start.
